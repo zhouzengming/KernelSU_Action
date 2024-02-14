@@ -253,7 +253,10 @@ jobs:
         else
             make -j$(nproc --all) CC=clang O=out ARCH=${{ env.ARCH }} ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }}
         fi
-        tar -zcf $GITHUB_WORKSPACE/kernel_workspace/out.tar.gz $GITHUB_WORKSPACE/kernel_workspace/android-kernel/out
+        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel/
+        tar -zcf out.tar.gz out
+        mv out.tar.gz $GITHUB_WORKSPACE/kernel_workspace/
+        cd -
 
     - name: Check a kernel output files
       run: |
