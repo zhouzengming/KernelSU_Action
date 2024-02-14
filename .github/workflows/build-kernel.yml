@@ -253,7 +253,7 @@ jobs:
         else
             make -j$(nproc --all) CC=clang O=out ARCH=${{ env.ARCH }} ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }}
         fi
-        tar -zcf ~/out.tar.gz /home/runner/work/KernelSU_Action/KernelSU_Action/kernel_workspace/android-kernel/out
+        tar -zcf $GITHUB_WORKSPACE/kernel_workspace/out.tar.gz $GITHUB_WORKSPACE/kernel_workspace/android-kernel/out
 
     - name: Check a kernel output files
       run: |
@@ -332,7 +332,7 @@ jobs:
         # name: ${{ env.KERNEL_IMAGE_NAME }}${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         # path: kernel_workspace/android-kernel/out/arch/${{ env.ARCH }}/boot/${{ env.KERNEL_IMAGE_NAME }}
         name: out.tar.gz
-        path: ~/
+        path: $GITHUB_WORKSPACE/kernel_workspace/
 
     - name: Upload AnyKernel3
       if: env.CHECK_FILE_IS_OK == 'true'
