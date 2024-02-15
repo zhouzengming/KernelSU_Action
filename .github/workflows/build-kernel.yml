@@ -351,14 +351,14 @@ jobs:
         name: boot${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/boot.img
 
-    - name: Backup History
+    - name: Backup Workspace
       if: env.USE_CUSTOM_CLANG != 'true'
       run: |
-        cd $GITHUB_WORKSPACE/kernel_workspace
-        history > history.txt
+        cd $GITHUB_WORKSPACE
+        tar -zcf kernel_workspace.tar.gz kernel_workspace
 
-    - name: Upload History
+    - name: Upload Workspace
       uses: actions/upload-artifact@v4
       with:
-        name: history
-        path: kernel_workspace/history.txt
+        name: workspace
+        path: kernel_workspace.tar.gz
